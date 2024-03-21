@@ -1,4 +1,4 @@
-from src.pokemon import Pokemon, FirePokemon, GrassPokemon, WaterPokemon
+from src.pokemon import Pokemon, FirePokemon, GrassPokemon, WaterPokemon, NormalPokemon
 import pytest
 
 @pytest.fixture
@@ -16,6 +16,11 @@ def leafeon():
 @pytest.fixture
 def vaporeon():
     return ["Vaporeon", 70, 19, "Hydro pump"]
+
+@pytest.fixture
+def eevee():
+    return ["Eevee", 55, 18, "Headbutt"]
+
 
 @pytest.mark.describe('Tests for Pokemon parent class')
 class TestPokemonParent:
@@ -90,7 +95,13 @@ class TestFirePokemon:
         test_fire_pokemon = FirePokemon(*flareon)
         test_water_pokemon = WaterPokemon(*vaporeon)
         assert test_fire_pokemon.get_multiplier(test_water_pokemon) == 0.5
-    
+
+    def test_pokemon__fire_pokemon_get_multiplier_is_1_against_normal(self, flareon, eevee):
+        test_fire_pokemon = FirePokemon(*flareon)
+        test_normal_pokemon = NormalPokemon(*eevee)
+        assert test_fire_pokemon.get_multiplier(test_normal_pokemon) == 1
+
+
 @pytest.mark.describe('Tests for grass pokemon class')
 class TestGrassPokemon:
     def test_pokemon__grass_type_inherits_from_pokeman(self, leafeon):
@@ -121,3 +132,83 @@ class TestGrassPokemon:
         test_fire_pokemon = FirePokemon(*flareon)
         test_grass_pokemon = GrassPokemon(*leafeon)
         assert test_grass_pokemon.get_multiplier(test_fire_pokemon) == 0.5
+
+    def test_pokemon__grass_pokemon_get_multiplier_is_1_against_normal(self, leafeon, eevee):
+        test_grass_pokemon = GrassPokemon(*leafeon)
+        test_normal_pokemon = NormalPokemon(*eevee)
+        assert test_grass_pokemon.get_multiplier(test_normal_pokemon) == 1
+
+
+
+@pytest.mark.describe('Tests for water pokemon class')
+class TestWaterPokemon:
+    def test_pokemon__water_type_inherits_from_pokemon(self, vaporeon):
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        assert isinstance(test_water_pokemon, Pokemon)
+
+    def test_pokemon__water_pokemon_initialises_with_class_attributes(self, vaporeon):
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        assert test_water_pokemon.pokemon_type == "water"
+        assert test_water_pokemon.strong_against == "fire"
+        assert test_water_pokemon.weak_against == "grass"
+
+    def test_pokemon__water_pokemon_has_get_multipler_method(self, vaporeon):
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        assert isinstance(test_water_pokemon.get_multiplier(test_water_pokemon), float)
+
+    def test_pokemon__water_pokemon_get_multiplier_is_1_against_water(self, vaporeon):
+        test_water_pokemon_1 = WaterPokemon(*vaporeon)
+        test_water_pokemon_2 = WaterPokemon("Vaporeon", 50, 20, "Headbutt")
+        assert test_water_pokemon_1.get_multiplier(test_water_pokemon_2) == 1
+
+    def test_pokemon__water_pokemon_get_multiplier_is_higher_against_fire(self, vaporeon, flareon):
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        test_fire_pokemon = FirePokemon(*flareon)
+        assert test_water_pokemon.get_multiplier(test_fire_pokemon) == 1.5
+
+    def test_pokemon__water_pokemon_get_multiplier_is_lower_against_grass(self, vaporeon, leafeon):
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        test_grass_pokemon = GrassPokemon(*leafeon)
+        assert test_water_pokemon.get_multiplier(test_grass_pokemon) == 0.5
+
+    def test_pokemon__water_pokemon_get_multiplier_is_1_against_normal(self, vaporeon, eevee):
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        test_normal_pokemon = NormalPokemon(*eevee)
+        assert test_water_pokemon.get_multiplier(test_normal_pokemon) == 1
+
+
+@pytest.mark.describe('Tests for normal pokemon class')
+class TestNormalPokemon:
+    def test_pokemon__normal_type_inherits_from_pokemon(self, eevee):
+        test_normal_pokemon = NormalPokemon(*eevee)
+        assert isinstance(test_normal_pokemon, Pokemon)
+
+    def test_pokemon__normal_pokemon_initialises_with_class_attributes(self, eevee):
+        test_normal_pokemon = NormalPokemon(*eevee)
+        assert test_normal_pokemon.pokemon_type == "normal"
+        assert test_normal_pokemon.strong_against == None
+        assert test_normal_pokemon.weak_against == None
+
+    def test_pokemon__normal_pokemon_has_get_multipler_method(self, eevee):
+        test_normal_pokemon = NormalPokemon(*eevee)
+        assert isinstance(test_normal_pokemon.get_multiplier(test_normal_pokemon), float)
+
+    def test_pokemon__normal_pokemon_get_multiplier_is_1_against_normal(self, eevee):
+        test_normal_pokemon_1 = NormalPokemon(*eevee)
+        test_normal_pokemon_2 = NormalPokemon("Eevee", 50, 20, "Headbutt")
+        assert test_normal_pokemon_1.get_multiplier(test_normal_pokemon_2) == 1
+
+    def test_pokemon__normal_pokemon_get_multiplier_is_1_against_fire(self, eevee, flareon):
+        test_normal_pokemon = NormalPokemon(*eevee)
+        test_fire_pokemon = FirePokemon(*flareon)
+        assert test_normal_pokemon.get_multiplier(test_fire_pokemon) == 1
+
+    def test_pokemon__normal_pokemon_get_multiplier_is_1_against_water(self, eevee, vaporeon):
+        test_normal_pokemon = NormalPokemon(*eevee)
+        test_water_pokemon = WaterPokemon(*vaporeon)
+        assert test_normal_pokemon.get_multiplier(test_water_pokemon) == 1
+
+    def test_pokemon__normal_pokemon_get_multiplier_is_1_against_grass(self, eevee, leafeon):
+        test_normal_pokemon = NormalPokemon(*eevee)
+        test_grass_pokemon = GrassPokemon(*leafeon)
+        assert test_normal_pokemon.get_multiplier(test_grass_pokemon) == 1
