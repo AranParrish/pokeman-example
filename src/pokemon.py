@@ -17,3 +17,30 @@ class Pokemon():
 
     def has_fainted(self):
         return self.__has_fainted
+    
+    def get_multiplier(self, other_pokemon):
+        if other_pokemon.pokemon_type == self.strong_against:
+            return 1.5
+        if other_pokemon.pokemon_type == self.weak_against:
+            return 0.5
+        return 1.0
+    
+class FirePokemon(Pokemon):
+    pokemon_type = "fire"
+    strong_against = "grass"
+    weak_against = "water"
+
+class GrassPokemon(Pokemon):
+    pokemon_type = "grass"
+    strong_against = "water"
+    weak_against = "fire"
+
+class WaterPokemon(Pokemon):
+    pokemon_type = "water"
+    strong_against = "fire"
+    weak_against = "grass"
+
+class NormalPokemon(Pokemon):
+    pokemon_type = "normal"
+    strong_against = None
+    weak_against = None
