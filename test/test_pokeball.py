@@ -1,5 +1,5 @@
 from src.pokemon import Pokemon, FirePokemon, GrassPokemon, WaterPokemon, NormalPokemon
-from src.pokeball import Pokeball
+from src.pokeball import Pokeball, PokeballFullException
 import pytest, types
 
 @pytest.fixture
@@ -50,7 +50,7 @@ class TestPokeball:
 
         test_pokeball.catch(test_pikachu_1)
 
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(PokeballFullException) as exc_info:
             test_pokeball.catch(test_pikachu_2)
 
         assert "Pokeball already contains pokemon" in str(exc_info.value)
