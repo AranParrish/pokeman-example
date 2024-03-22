@@ -1,13 +1,21 @@
-from src.pokeball import Pokeball
+from src.pokeball import Pokeball, PokeballFullException
 from src.pokemon import *
+
+class AllPokeballsFull(Exception):
+    def __init__(self):
+        super().__init__('All pokeballs full')
 
 class Trainer():
     def __init__(self):
         self.belt = [Pokeball() for i in range(6)]
 
     def throw_pokeball(self, pokemon):
-        for pokeball in self.belt:
-            if pokeball.is_empty():
+        for i,pokeball in enumerate(self.belt):
+            try:    
                 pokeball.catch(pokemon)
-                return
-        raise Exception('All pokeballs full')
+            except PokeballFullException:
+                if i == 5:
+                    raise AllPokeballsFull
+            else:
+                break
+    

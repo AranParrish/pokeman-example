@@ -1,4 +1,4 @@
-from src.trainer import Trainer
+from src.trainer import Trainer, AllPokeballsFull
 from src.pokemon import Pokemon
 from src.pokeball import Pokeball
 import pytest, types
@@ -62,7 +62,9 @@ class TestThrowPokeball:
         test_trainer.throw_pokeball(test_pokemon_4)
         test_trainer.throw_pokeball(test_pokemon_5)
         test_trainer.throw_pokeball(test_pokemon_6)     
-        with pytest.raises(Exception) as exc_info:
+
+        with pytest.raises(AllPokeballsFull) as exc_info:
             test_trainer.throw_pokeball(test_pokemon_7)
-        assert "All pokeballs full" in str(exc_info.value)
+
+        assert str(exc_info.value) == 'All pokeballs full'
         
