@@ -1,4 +1,5 @@
 from src.pokemon import Pokemon
+from random import randrange
 
 class Battle():
     def __init__(self, pokemon_1, pokemon_2):
@@ -14,12 +15,20 @@ class Battle():
             raise PokemonFaintedException(attacker.name)
         
         damage = attacker.get_multiplier(defender) * attacker.attack_damage
+
+        if (critical := (randrange(0, 10) >= 5)):
+            damage *= 3
         
         defender.take_damage(damage)
         
         self.current_attacker, self.current_defender = defender, attacker
 
-        return f'{attacker.name} used {attacker.move} for {damage} damage!'
+        return_string=''
+
+        if critical:
+            return_string += 'CRITICAL HIT! '
+
+        return return_string + f'{attacker.name} used {attacker.move} for {damage} damage!'
 
     def get_winner(self):
         if self.pokemon_1.has_fainted():
