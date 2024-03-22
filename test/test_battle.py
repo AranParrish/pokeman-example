@@ -125,3 +125,53 @@ class TestTakeTurn:
             test_battle.take_turn()
 
         assert str(exc_info.value) == "Weakgrass has fainted"
+
+
+@pytest.mark.describe('get_winner Method Tests')
+class TestGetWinner:
+    @pytest.mark.it('get_winner is a method')
+    def test_battle_has__get_winner__method(self, pikachu, flareon):
+        test_pokemon_1 = NormalPokemon(*pikachu)
+        test_pokemon_2 = FirePokemon(*flareon)
+        test_battle = Battle(test_pokemon_1, test_pokemon_2)
+
+        assert isinstance(test_battle.get_winner, types.MethodType)
+    
+    @pytest.mark.it('get_winner returns None when battle created')
+    def test_battle__get_winner__returns_none_on_creation(self, pikachu, flareon):
+        test_pokemon_1 = NormalPokemon(*pikachu)
+        test_pokemon_2 = FirePokemon(*flareon)
+        test_battle = Battle(test_pokemon_1, test_pokemon_2)
+
+        assert test_battle.get_winner() is None
+
+    @pytest.mark.it('get_winner returns pokemon 1 when pokemon 2 has fainted')
+    def test_battle__get_winner__returns_pokemon_1_when_pokemon_2_fainted(self):
+        test_pokemon_1 = FirePokemon('Firestrong', 100, 40, 'Inferno')
+        test_pokemon_2 = GrassPokemon('Weakgrass', 60, 10, 'Wilt')
+        test_battle = Battle(test_pokemon_1, test_pokemon_2)
+
+        test_battle.take_turn()
+
+        assert test_battle.get_winner() == 'Firestrong'
+
+    @pytest.mark.it('get_winner returns pokemon 2 when pokemon 1 has fainted')
+    def test_battle__get_winner__returns_pokemon_2_when_pokemon_1_fainted(self):
+        test_pokemon_1 = GrassPokemon('Weakgrass', 60, 10, 'Wilt')
+        test_pokemon_2 = FirePokemon('Firestrong', 100, 40, 'Inferno')
+        test_battle = Battle(test_pokemon_1, test_pokemon_2)
+
+        test_battle.take_turn()
+        test_battle.take_turn()
+
+        assert test_battle.get_winner() == 'Firestrong'
+
+    @pytest.mark.it('get_winner returns None if neither pokemon has fainted after turn taken')
+    def test_battle__get_winner__returns_none_if_no_winner_after__take_turn(self):
+        test_pokemon_1 = GrassPokemon('Weakgrass', 60, 10, 'Wilt')
+        test_pokemon_2 = FirePokemon('Firestrong', 100, 40, 'Inferno')
+        test_battle = Battle(test_pokemon_1, test_pokemon_2)
+
+        test_battle.take_turn()
+
+        assert test_battle.get_winner() is None

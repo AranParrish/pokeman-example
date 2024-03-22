@@ -18,6 +18,14 @@ class Battle():
         
         self.current_attacker, self.current_defender = defender, attacker
 
+    def get_winner(self):
+        if self.pokemon_1.has_fainted():
+            return self.pokemon_2.name
+        if self.pokemon_2.has_fainted():
+            return self.pokemon_1.name
+        
+        return None
+
 
 class PokemonFaintedException(Exception):
     def __init__(self, pokemon_name):
