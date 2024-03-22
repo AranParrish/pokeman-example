@@ -65,6 +65,18 @@ class TestPokemonParent:
 
         assert test_pokemon.has_fainted()
 
+    @pytest.mark.it('Returns name and type of pokemon')
+    def test_pokemon__returns_name_and_type(self, pikachu, flareon, vaporeon, leafeon):
+        test_pokemon_1 = NormalPokemon(*pikachu)
+        test_pokemon_2 = FirePokemon(*flareon)
+        test_pokemon_3 = GrassPokemon(*leafeon)
+        test_pokemon_4 = WaterPokemon(*vaporeon)
+        assert str(test_pokemon_1) == 'Pokemon: Pikachu, Type: normal'
+        assert str(test_pokemon_2) == 'Pokemon: Flareon, Type: fire'
+        assert str(test_pokemon_3) == 'Pokemon: Leafeon, Type: grass'
+        assert str(test_pokemon_4) == 'Pokemon: Vaporeon, Type: water'
+
+
 @pytest.mark.describe('Tests for fire pokemon class')
 class TestFirePokemon:
     def test_pokemon__fire_type_inherits_from_pokeman(self, flareon):

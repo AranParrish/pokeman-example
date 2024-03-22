@@ -25,6 +25,9 @@ class Pokemon():
             return 0.5
         return 1.0
     
+    def __str__(self):
+        return f'Pokemon: {self.name}, Type: {self.pokemon_type}'
+    
 class FirePokemon(Pokemon):
     pokemon_type = "fire"
     strong_against = "grass"
