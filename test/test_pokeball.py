@@ -77,3 +77,14 @@ class TestPokeball:
 
         assert test_pokeball.is_empty() is False
 
+    def test_pokeball__returns_expected_message_when_empty(self):
+        test_pokeball = Pokeball()
+
+        assert str(test_pokeball) == "Empty pokeball"
+
+    def test_pokeball__returns_stored_pokemon_name_when_filled(self, pikachu):
+        test_pokemon = NormalPokemon(*pikachu)
+        test_pokeball = Pokeball()
+        test_pokeball.catch(test_pokemon)
+
+        assert str(test_pokeball) == "Pokeball containing Pikachu"

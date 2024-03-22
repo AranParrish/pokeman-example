@@ -17,7 +17,12 @@ class Pokeball():
     
     def is_empty(self):
         return not self.__current_pokemon
-
+    
+    def __str__(self):
+        if self.__current_pokemon:
+            return f"Pokeball containing {self.__current_pokemon.name}"
+        else:
+            return f"Empty pokeball"
 
 class PokeballFullException(Exception):
     def __init__(self):
