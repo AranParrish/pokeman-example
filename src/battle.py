@@ -13,19 +13,22 @@ class Battle():
         if attacker.has_fainted():
             raise PokemonFaintedException(attacker.name)
         
-        defender.take_damage(attacker.get_multiplier(defender)
-                             * attacker.attack_damage)
+        damage = attacker.get_multiplier(defender) * attacker.attack_damage
+        
+        defender.take_damage(damage)
         
         self.current_attacker, self.current_defender = defender, attacker
+
+        return f'{attacker.name} used {attacker.move} for {damage} damage!'
 
     def get_winner(self):
         if self.pokemon_1.has_fainted():
             return self.pokemon_2.name
         if self.pokemon_2.has_fainted():
             return self.pokemon_1.name
-        
+ 
         return None
-    
+
     def __str__(self):
         return f"Battle between {self.pokemon_1.name} and {self.pokemon_2.name}"
 
