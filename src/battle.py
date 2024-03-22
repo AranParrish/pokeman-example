@@ -11,9 +11,14 @@ class Battle():
         attacker, defender = self.current_attacker, self.current_defender
 
         if attacker.has_fainted():
-            raise Exception(f'{attacker.name} has already fainted')
+            raise PokemonFaintedException(attacker.name)
         
         defender.take_damage(attacker.get_multiplier(defender)
                              * attacker.attack_damage)
         
         self.current_attacker, self.current_defender = defender, attacker
+
+
+class PokemonFaintedException(Exception):
+    def __init__(self, pokemon_name):
+        super().__init__(f'{pokemon_name} has fainted')

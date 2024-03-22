@@ -113,8 +113,8 @@ class TestTakeTurn:
 
         assert test_battle.current_attacker is test_pokemon_1
 
-    @pytest.mark.it('Battle raises exception when defending pokemon has already fainted')
-    def test_battle__take_turn__against_fainted_pokemon_raises_exception(self):
+    @pytest.mark.it('Battle raises exception when attacking pokemon has already fainted')
+    def test_battle__take_turn__with_fainted_pokemon_raises_exception(self):
         test_pokemon_1 = FirePokemon('Firestrong', 100, 40, 'Inferno')
         test_pokemon_2 = GrassPokemon('Weakgrass', 60, 10, 'Wilt')
         test_battle = Battle(test_pokemon_1, test_pokemon_2)
@@ -124,4 +124,4 @@ class TestTakeTurn:
         with pytest.raises(Exception) as exc_info:
             test_battle.take_turn()
 
-        assert "has already fainted" in str(exc_info.value)
+        assert str(exc_info.value) == "Weakgrass has fainted"
