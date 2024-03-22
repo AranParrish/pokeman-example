@@ -25,6 +25,9 @@ class Battle():
             return self.pokemon_1.name
         
         return None
+    
+    def __str__(self):
+        return f"Battle between {self.pokemon_1.name} and {self.pokemon_2.name}"
 
 
 class PokemonFaintedException(Exception):

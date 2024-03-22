@@ -49,6 +49,14 @@ class TestAttributes:
 
         assert test_battle.current_attacker is test_pokemon_1
 
+    @pytest.mark.it('String method returns battle between pokemon 1 and pokemon 2')
+    def test_battle__string_method_returns_battle_details(self, pikachu, flareon):
+        test_pokemon_1 = NormalPokemon(*pikachu)
+        test_pokemon_2 = FirePokemon(*flareon)
+        test_battle = Battle(test_pokemon_1, test_pokemon_2)
+
+        assert str(test_battle) == "Battle between Pikachu and Flareon"
+
 
 @pytest.mark.describe('take_turn Method Tests')
 class TestTakeTurn:
