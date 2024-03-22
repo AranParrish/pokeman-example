@@ -22,8 +22,8 @@ class TestAttributes:
 
     @pytest.mark.it('Trainer class string method returns expected')
     def test_trainer__class_string_method_return_value(self):
-        test_trainer = Trainer()
-        assert str(test_trainer) == "Pokemon trainer"
+        test_trainer = Trainer(name="Joe")
+        assert str(test_trainer) == "Pokemon trainer: Joe"
 
 
 @pytest.mark.describe('Throw pokeball method tests')

@@ -6,11 +6,12 @@ class AllPokeballsFull(Exception):
         super().__init__('All pokeballs full')
 
 class Trainer():
-    def __init__(self):
+    def __init__(self, name=""):
         self.belt = [Pokeball() for i in range(6)]
+        self.name = name
 
     def __str__(self):
-        return "Pokemon trainer"
+        return f"Pokemon trainer: {self.name}"
 
     def throw_pokeball(self, pokemon):
         for i,pokeball in enumerate(self.belt):
