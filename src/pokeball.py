@@ -1,4 +1,5 @@
-from src.pokemon import *
+# from src.pokemon import *
+
 
 class Pokeball():
     def __init__(self):
@@ -6,7 +7,7 @@ class Pokeball():
 
     def catch(self, pokemon):
         if self.__current_pokemon:
-            raise Exception(f'Pokeball already contains pokemon')
+            raise PokeballFullException
         
         self.__current_pokemon = pokemon
 
@@ -16,3 +17,8 @@ class Pokeball():
     
     def is_empty(self):
         return not self.__current_pokemon
+
+
+class PokeballFullException(Exception):
+    def __init__(self):
+        super().__init__('Pokeball already contains pokemon')
