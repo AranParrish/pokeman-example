@@ -1,4 +1,4 @@
-from src.battle import Battle
+from src.battle import Battle, PokemonFaintedException
 from src.pokemon import *
 import pytest, types
 
@@ -121,7 +121,7 @@ class TestTakeTurn:
 
         test_battle.take_turn()
 
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(PokemonFaintedException) as exc_info:
             test_battle.take_turn()
 
         assert str(exc_info.value) == "Weakgrass has fainted"
