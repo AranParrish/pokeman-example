@@ -40,7 +40,17 @@ def select_pokemon(trainer):
             f'{pokemon["Attack damage"]:<11} {pokemon["Type"].capitalize():<6}')
 
     selected_pokemon = input(f'\nHello {trainer.name}, now enter name of pokemon to catch --> ')
-    selected_pokemon = pokemon_dict[selected_pokemon.lower()]
+    while True:
+            try:    
+                selected_pokemon = pokemon_dict[selected_pokemon.lower()]
+            except KeyError:
+                print(f'Sorry, unrecognised Pokemon. Please try again.')
+                selected_pokemon = input(f'Enter name of pokemon to catch --> ')
+            else:
+                break
+
+
+
     class_selection_pokemon = type_dict[selected_pokemon["Type"]]
 
     pokemon = class_selection_pokemon(selected_pokemon["Name"],
