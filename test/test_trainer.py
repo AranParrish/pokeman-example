@@ -20,6 +20,12 @@ class TestAttributes:
         assert len(test_trainer.belt) == 6
         assert all([isinstance(item, Pokeball) for item in test_trainer.belt])
 
+    @pytest.mark.it('Trainer class string method returns expected')
+    def test_trainer__class_string_method_return_value(self):
+        test_trainer = Trainer()
+        assert str(test_trainer) == "Pokemon trainer"
+
+
 @pytest.mark.describe('Throw pokeball method tests')
 class TestThrowPokeball:
     @pytest.mark.it('Can catch a pokemon in a pokeball')

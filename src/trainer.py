@@ -9,6 +9,9 @@ class Trainer():
     def __init__(self):
         self.belt = [Pokeball() for i in range(6)]
 
+    def __str__(self):
+        return "Pokemon trainer"
+
     def throw_pokeball(self, pokemon):
         for i,pokeball in enumerate(self.belt):
             try:    
