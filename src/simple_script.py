@@ -34,12 +34,12 @@ pokemon_dict = {
 
 
 def select_pokemon(trainer):
-    print("Name       Hit Points  Move         Damage      Type")
+    print("\nName       Hit Points  Move         Damage      Type")
     for _, pokemon in pokemon_dict.items():
         print(f'{pokemon["Name"]:<10} {pokemon["Hit Points"]:<11} {pokemon["Move"]:<13}' 
             f'{pokemon["Attack damage"]:<11} {pokemon["Type"].capitalize():<6}')
 
-    selected_pokemon = input(f'Hello {trainer.name}, now enter name of pokemon to catch --> ')
+    selected_pokemon = input(f'\nHello {trainer.name}, now enter name of pokemon to catch --> ')
     selected_pokemon = pokemon_dict[selected_pokemon.lower()]
     class_selection_pokemon = type_dict[selected_pokemon["Type"]]
 
@@ -54,18 +54,26 @@ def select_pokemon(trainer):
 
 
 # Trainer 1 capturing pokemon
-trainer_1 = input('Please enter first trainer name --> ')
+trainer_1 = input('\nPlease enter first trainer name --> ')
 trainer_1 = Trainer(trainer_1)
 select_pokemon(trainer_1)
 
 # Trainer 2 capturing pokemon
-trainer_2 = input('Please enter second trainer name --> ')
+trainer_2 = input('\nPlease enter second trainer name --> ')
 trainer_2 = Trainer(trainer_2)
 
 select_pokemon(trainer_2)
 
-print('Let battle commence!')
+print('\n\nLET BATTLE COMMENCE!\n')
 
 battle = Battle(trainer_1.belt[0].current_pokemon, trainer_2.belt[0].current_pokemon)
 
-print(battle)
+print(battle,'\n')
+
+current_trainer, next_trainer = trainer_1, trainer_2
+
+while (winner := battle.get_winner()) is None:
+    print(battle.take_turn())
+    current_trainer, next_trainer = next_trainer, current_trainer
+
+print(f'\n{next_trainer.name}\'s pokemon {winner} wins!')
