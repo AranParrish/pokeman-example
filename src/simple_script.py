@@ -2,22 +2,8 @@ from src.trainer import Trainer
 from src.pokeball import Pokeball
 from src.pokemon import Pokemon, NormalPokemon, GrassPokemon, FirePokemon, WaterPokemon
 from src.battle import Battle
+from src.pokemon_data import pokemon_dict
 
-flareon = {
-    "Name": "Flareon",
-    "Hit Points": 65,
-    "Move": "Fire blast",
-    "Attack damage": 20,
-    "Type": "fire"
-}
-
-leafeon = {
-    "Name": "Leafeon",
-    "Hit Points": 65,
-    "Move": "Giga drain",
-    "Attack damage": 17,
-    "Type": "grass"
-}
 
 type_dict = {
     "normal": NormalPokemon,
@@ -25,12 +11,6 @@ type_dict = {
     "fire": FirePokemon,
     "water": WaterPokemon
 }
-
-pokemon_dict = {
-    "flareon": flareon,
-    "leafeon": leafeon
-    }
-
 
 
 def select_pokemon(trainer):
@@ -48,8 +28,6 @@ def select_pokemon(trainer):
                 selected_pokemon = input(f'Enter name of pokemon to catch --> ')
             else:
                 break
-
-
 
     class_selection_pokemon = type_dict[selected_pokemon["Type"]]
 
