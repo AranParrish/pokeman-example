@@ -14,7 +14,7 @@ flareon = {
 leafeon = {
     "Name": "Leafeon",
     "Hit Points": 65,
-    "Move": "Fire blast",
+    "Move": "Giga drain",
     "Attack damage": 17,
     "Type": "grass"
 }
@@ -31,46 +31,41 @@ pokemon_dict = {
     "leafeon": leafeon
     }
 
+
+
+def select_pokemon(trainer):
+    print("Name       Hit Points  Move         Damage      Type")
+    for _, pokemon in pokemon_dict.items():
+        print(f'{pokemon["Name"]:<10} {pokemon["Hit Points"]:<11} {pokemon["Move"]:<13}' 
+            f'{pokemon["Attack damage"]:<11} {pokemon["Type"].capitalize():<6}')
+
+    selected_pokemon = input(f'Hello {trainer.name}, now enter name of pokemon to catch --> ')
+    selected_pokemon = pokemon_dict[selected_pokemon.lower()]
+    class_selection_pokemon = type_dict[selected_pokemon["Type"]]
+
+    pokemon = class_selection_pokemon(selected_pokemon["Name"],
+                                        selected_pokemon["Hit Points"],
+                                        selected_pokemon["Attack damage"],
+                                        selected_pokemon["Move"])
+
+    trainer.throw_pokeball(pokemon)
+
+    print(f"{trainer.name} caught {pokemon.name}!")
+
+
 # Trainer 1 capturing pokemon
 trainer_1 = input('Please enter first trainer name --> ')
 trainer_1 = Trainer(trainer_1)
-
-print("Name", "Hit Points", "Move", "Attack damage", "Type", sep="\t")
-for _, pokemon in pokemon_dict.items():
-    print(pokemon["Name"], pokemon["Hit Points"], pokemon["Move"], 
-          pokemon["Attack damage"], pokemon["Type"], sep="\t")
-
-trainer_1_pokemon = input(f'Hello {trainer_1.name}, now enter name of pokemon to catch --> ')
-selected_pokemon = pokemon_dict[trainer_1_pokemon.lower()]
-class_selection_pokemon = type_dict[selected_pokemon["Type"]]
-
-pokemon_1 = class_selection_pokemon(selected_pokemon["Name"],
-                                     selected_pokemon["Hit Points"],
-                                     selected_pokemon["Attack damage"],
-                                     selected_pokemon["Move"])
-
-trainer_1.throw_pokeball(pokemon_1)
-
-print(f"{trainer_1.name} caught {pokemon_1.name}!")
+select_pokemon(trainer_1)
 
 # Trainer 2 capturing pokemon
 trainer_2 = input('Please enter second trainer name --> ')
 trainer_2 = Trainer(trainer_2)
 
-print("Name", "Hit Points", "Move", "Attack damage", "Type", sep="\t")
-for _, pokemon in pokemon_dict.items():
-    print(pokemon["Name"], pokemon["Hit Points"], pokemon["Move"], 
-          pokemon["Attack damage"], pokemon["Type"], sep="\t")
+select_pokemon(trainer_2)
 
-trainer_2_pokemon = input(f'Hello {trainer_2.name}, now enter name of pokemon to catch --> ')
-selected_pokemon = pokemon_dict[trainer_2_pokemon.lower()]
-class_selection_pokemon = type_dict[selected_pokemon["Type"]]
+print('Let battle commence!')
 
-pokemon_2 = class_selection_pokemon(selected_pokemon["Name"],
-                                     selected_pokemon["Hit Points"],
-                                     selected_pokemon["Attack damage"],
-                                     selected_pokemon["Move"])
+battle = Battle(trainer_1.belt[0].current_pokemon, trainer_2.belt[0].current_pokemon)
 
-trainer_2.throw_pokeball(pokemon_2)
-
-print(f"{trainer_2.name} caught {pokemon_2.name}!")
+print(battle)
