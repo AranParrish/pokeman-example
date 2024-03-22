@@ -61,7 +61,7 @@ print(battle,'\n')
 current_trainer, next_trainer = trainer_1, trainer_2
 
 while (winner := battle.get_winner()) is None:
-    print(battle.take_turn())
+    print(battle.take_turn(0.3))
     current_trainer, next_trainer = next_trainer, current_trainer
 
 print(f'\n{next_trainer.name}\'s pokemon {winner} wins!')

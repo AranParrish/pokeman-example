@@ -8,7 +8,7 @@ class Battle():
         self.current_attacker = pokemon_1
         self.current_defender = pokemon_2
 
-    def take_turn(self):
+    def take_turn(self, critical_chance=0):
         attacker, defender = self.current_attacker, self.current_defender
 
         if attacker.has_fainted():
@@ -16,7 +16,7 @@ class Battle():
         
         damage = attacker.get_multiplier(defender) * attacker.attack_damage
 
-        if (critical := (randrange(0, 10) >= 5)):
+        if (critical := (randrange(0, 10) >= (10*(1-critical_chance)))):
             damage *= 3
         
         defender.take_damage(damage)
