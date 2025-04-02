@@ -1,2 +1,6 @@
 venv
-**/__pycache__
+__pycache**
+.pytest**
+*.vscode*
+*.coverage*
+.DS_Store
