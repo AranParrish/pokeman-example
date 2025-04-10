@@ -80,3 +80,8 @@ check-coverage:
 
 ## Run all checks
 run-checks: security-test run-black unit-test check-coverage
+
+################################################################################################################
+# Play game
+battle:
+	$(call execute_in_env, PYTHONPATH=${PYTHONPATH} python src/simple_script.py)
