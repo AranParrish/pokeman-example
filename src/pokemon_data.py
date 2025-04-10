@@ -3,7 +3,7 @@ flareon = {
     "Hit Points": 65,
     "Move": "Fire blast",
     "Attack damage": 20,
-    "Type": "fire"
+    "Type": "fire",
 }
 
 leafeon = {
@@ -11,15 +11,15 @@ leafeon = {
     "Hit Points": 65,
     "Move": "Giga drain",
     "Attack damage": 17,
-    "Type": "grass"
+    "Type": "grass",
 }
 
 eevee = {
-    "Name" : "Eevee",
+    "Name": "Eevee",
     "Hit Points": 55,
     "Move": "Headbutt",
     "Attack damage": 18,
-    "Type": "normal"
+    "Type": "normal",
 }
 
 vaporeon = {
@@ -27,7 +27,7 @@ vaporeon = {
     "Hit Points": 70,
     "Move": "Hydro pump",
     "Attack damage": 19,
-    "Type": "water"
+    "Type": "water",
 }
 
 pokemon_dict = {
